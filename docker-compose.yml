@@ -1,0 +1,12 @@
+version: '3'
+
+volumes:
+  app_volume:
+    external: true
+
+services:
+  world_transit_solar: 
+    build: .
+    container_name: world_transit_solar
+    volumes:
+      - app_volume:/home/project/world-transit-solar
