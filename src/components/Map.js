@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { WebView } from 'react-native-webview';
 import { Asset } from 'expo-asset';
 import * as FileSystem from 'expo-file-system';
+import AsyncStorage from '@react-native-community/async-storage';
 import { ScreenOrientation } from 'expo';
+const process = require('process');
+import START_MARKERS from '../constants/webview';
 
 export default class Map extends Component {
 
@@ -52,10 +55,7 @@ export default class Map extends Component {
             controller.injectRawToWebView(code);
 
             let runCode = `
-            var world_svg = window.Snap("#world_svg");
-            var markers = {};
-            window.Functions.markersInitialize(world_svg);
-            window.Functions.wheelInitialize(world_svg);
+            ${START_MARKERS}
             true;
             `;
             controller.injectRawToWebView(runCode);
@@ -111,12 +111,12 @@ export default class Map extends Component {
             controller.setState({
                 loadHtml: true
             });
-            let assetJS = Asset.fromModule(require('../../public/bundle.html'));
+            let assetJS = Asset.fromModule(require('../../public/bundle.jshtml'));
             assetJS.downloadAsync().then(function() {
                 controller.jsURI = assetJS.localUri;
                 controller.downloadJS();
             });
         });
-        this.changeScreenOrientation();
+        // this.changeScreenOrientation();
     }
 }

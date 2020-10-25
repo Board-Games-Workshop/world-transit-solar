@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-native-elements';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import DesignTile from './DesignTile';
 import QuestionCard from './QuestionCard';
 import TravelCard from './TravelCard';
@@ -26,7 +25,6 @@ export default class Screen extends Component {
     }
 
     playQuestionDisabled() {
-        console.log(this.props);
         let GameController = this.props.GameController;
         let GameState = GameController.props.GameStorageController.GameState;
         let nextPlayer = (this.props.GameController.currentPlayer+1) % 
@@ -121,41 +119,43 @@ export default class Screen extends Component {
                 <View style={this.styles.sidebar}>
                     <TouchableOpacity Screen={this}>
                         <Button onPress={this.playQuestion} title="Question"
-                        style={this.styles.button}
-                        disabled={this.playQuestionDisabled()}
-                        titleStyle={{ fontWeight: 'bold', fontSize: 18, marginLeft: 15, display: "none" }}
-                        containerStyle={this.styles.buttonContainer}
-                        icon={{
-                            name: 'question',
-                            type: 'font-awesome',
-                            size: 50,
-                            color: 'red'
-                        }}
-                        iconContainerStyle={this.styles.iconContainer}
-                        buttonStyle={{
-                            borderWidth: 0,
-                            borderColor: 'transparent',
-                            borderRadius: 20
-                        }} />
+                            style={this.styles.button}
+                            disabled={this.playQuestionDisabled()}
+                            titleStyle={{ fontWeight: 'bold', fontSize: 18, marginLeft: 15, display: "none" }}
+                            containerStyle={this.styles.buttonContainer}
+                            icon={{
+                                name: 'question',
+                                type: 'font-awesome',
+                                size: 50,
+                                color: 'red'
+                            }}
+                            iconContainerStyle={this.styles.iconContainer}
+                            buttonStyle={{
+                                borderWidth: 0,
+                                borderColor: 'transparent',
+                                borderRadius: 20
+                            }}
+                        />
                     </TouchableOpacity>
                     <TouchableOpacity Screen={this}>
                         <Button onPress={this.playTravel} title="Travel"
-                        style={this.styles.button}
-                        disabled={this.playTravelDisabled()}
-                        titleStyle={{ fontWeight: 'bold', fontSize: 18, marginLeft: 15, display: "none" }}
-                        containerStyle={this.styles.buttonContainer}
-                        icon={{
-                            name: 'skyatlas',
-                            type: 'font-awesome',
-                            size: 50,
-                            color: 'aqua'
-                        }}
-                        iconContainerStyle={this.styles.iconContainer}
-                        buttonStyle={{
-                            borderWidth: 0,
-                            borderColor: 'transparent',
-                            borderRadius: 20
-                        }} />
+                            style={this.styles.button}
+                            disabled={this.playTravelDisabled()}
+                            titleStyle={{ fontWeight: 'bold', fontSize: 18, marginLeft: 15, display: "none" }}
+                            containerStyle={this.styles.buttonContainer}
+                            icon={{
+                                name: 'skyatlas',
+                                type: 'font-awesome',
+                                size: 50,
+                                color: 'aqua'
+                            }}
+                            iconContainerStyle={this.styles.iconContainer}
+                            buttonStyle={{
+                                borderWidth: 0,
+                                borderColor: 'transparent',
+                                borderRadius: 20
+                            }}
+                        />
                     </TouchableOpacity>
                     <TouchableOpacity Screen={this}>
                         <Button onPress={this.playDesign} title="Compass"

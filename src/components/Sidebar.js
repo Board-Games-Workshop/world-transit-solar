@@ -1,9 +1,36 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { ListItem, Image } from 'react-native-elements';
+import { View, StyleSheet, Text, SafeAreaView, FlatList } from 'react-native';
+import { Image } from 'react-native-elements';
 import TravelCard from './TravelCard';
 import DesignTile from './DesignTile';
 import QuestionCard from './QuestionCard';
+
+const DATA = [
+    {
+        id: '1',
+        title: '',
+        type: DesignTile.CARD_TYPE,
+        style: "designStyle",
+        icon: '../../assets/img/tile/design.png'
+    },
+    {
+        id: '2',
+        title: '',
+        type: QuestionCard.CARD_TYPE,
+        style: "questionStyle",
+        icon: '../../assets/img/tile/question.png'
+    }
+];
+
+const Item = ({ title, type, style, icon }) => (
+    <View style={style}>
+        <Text style={title}>{title}</Text>
+        <Image
+            style={{width: 100, height: 50}}
+            ImageSource={`require('./path/to/image.png')`}
+        />
+    </View>
+);
 
 export default class Sidebar extends Component {
 
@@ -20,9 +47,9 @@ export default class Sidebar extends Component {
             const { currentCard } = this.props.GameController.card.state;
             this.props.GameController.currentAnswer = row.Dest;
             this.props.GameController.currentQuestion = color;
-            this.styles.sidebar['display'] = "none";
+            styles.sidebar['display'] = "none";
             if(currentCard === TravelCard.CARD_TYPE) {
-                this.styles.tile = "flex";
+                styles.tile = "flex";
             }
         }
     }
@@ -38,8 +65,11 @@ export default class Sidebar extends Component {
     }
 
     render() {
+        const renderItem = ({ item }) => (
+            <Item title={item.title} icon={item.icon} onPress={this.onChooseTile} type={item.type} style={styles[item.style]} />
+        );
         return (
-            <View style={this.styles.sidebar}>
+            <View style={styles.sidebar}>
                 {
                     this.state['colors'].map((color, index) => {
                         const map = this.props.GameController.Map;
@@ -52,35 +82,38 @@ export default class Sidebar extends Component {
                         </Text>
                     })
                 }
-                <View style={this.styles.tile}>
-                    <ListItem style={this.styles.icon} onPress={this.onChooseTile} tile={DesignTile.CARD_TYPE}>
-                        <Image
-                        style={{width: 100, height: 50}}
-                        source={require('../../assets/img/tile/design.png')}
+                <View style={styles.tile}>
+                    <SafeAreaView style={styles.icon}>
+                        <FlatList
+                            data={DATA}
+                            renderItem={renderItem}
+                            keyExtractor={item => item.id}
                         />
-                    </ListItem>
-                    <ListItem style={this.styles.icon} onPress={this.onChooseTile} tile={QuestionCard.CARD_TYPE}>
-                        <Image
-                        style={{width: 100, height: 50}}
-                        source={require('../../assets/img/tile/question.png')}
-                        />
-                    </ListItem>
+                    </SafeAreaView>
                 </View>
             </View>
         )
     }
 
-    styles = StyleSheet.create({
-        sidebar: {
-            flex: 2,
-            right: "5%"
-        },
-        icon: {
-    
-        },
-        tile: {
-            display: "none"
-        }
-    });
-
 }
+
+const styles = StyleSheet.create({
+    sidebar: {
+        flex: 2,
+        right: "5%"
+    },
+    tile: {
+        display: "flex",
+        width: "100%"
+    },
+    icon: {
+        display: "block",
+        width: "100%"
+    },
+    designStyle: {
+
+    },
+    questionStyle: {
+
+    }
+});

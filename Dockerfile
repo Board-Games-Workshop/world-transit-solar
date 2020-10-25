@@ -13,4 +13,5 @@ WORKDIR /home/project/world-transit-solar
 COPY . /home/project/world-transit-solar
 RUN npm install
 
+RUN apt-get install git
 CMD ["expo", "start", "--dev", "--lan"]

@@ -3,16 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import { BlankSVGMap } from '../components/blanksvgmap';
 import GameStorageController from '../lib/GameStorageController';
 import GameState from '../lib/GameState';
+import { PLAYERS } from '../constants/player';
 
 class Game extends Component {
 
-    state = {
-        params: {
-            players: 2,
-            gameStorageController: new GameStorageController(new GameState())
-        }
-    }
-    
     map = null
 
     constructor(props) {
@@ -20,23 +14,17 @@ class Game extends Component {
     }
 
     render() {
-        // const { state } = this.props.navigation;
-        const state = this.state;
-        var tokens = {
-            '0': 0,
-            '1': 1,
-            '2': 2,
-        };
+        const { params } = this.props.route;
         return (
             <View style={{ flex: 1, width: "100%", height: "100%"}}>
                 <BlankSVGMap
                     ref={map => (this.Map = map)}
                     GameStorageController={new GameStorageController(
-                        new GameState(),
+                        params.gameState,
                         this
                     )}
-                    tokens={tokens}
-                    players={state.params.players}
+                    tokens={params.tokens}
+                    players={params.players}
                 />
             </View>
         );

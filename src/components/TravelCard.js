@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import { NativeModules, StyleSheet } from 'react-native';
 const { CustomWebViewManager } = NativeModules;
 import { View, Text, Image } from 'react-native';
-import { Card, ListItem, Button, Icon } from 'react-native-elements';
+import { Card, Button, Icon } from 'react-native-elements';
 
 export default class TravelCard extends Component {
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Text, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
 import { Asset } from 'expo-asset';
 import { PLAYERS } from '../constants/player';
+import Browser from '../../tests/Browser';
 
 class FrontPage extends Component {
 
@@ -19,6 +20,7 @@ class FrontPage extends Component {
                         <Text style={styles.shinytile}>A game that is extra-ordinary for the youth for exploring their predictive skills.</Text>
                     </Text>
                 </TouchableOpacity>
+                <Browser />
             </View>
         );
     }

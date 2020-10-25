@@ -154,7 +154,7 @@ export default class GameController extends Component {
 
   styles = StyleSheet.create({
     sidebar: {
-      display: "none"
+      display: "flex"
     },
     map: {
       zIndex: 999,

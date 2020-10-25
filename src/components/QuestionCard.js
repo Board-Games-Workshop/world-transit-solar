@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { View, Text } from 'react-native';
-import { Card, ListItem, Input } from 'react-native-elements';
+import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import { Card, Input } from 'react-native-elements';
 import questions from '../../assets/js/questions';
 
 export default class QuestionCard extends Component {
@@ -16,16 +16,16 @@ export default class QuestionCard extends Component {
         this.createList(questions);
     }
 
-    createList(questions) {
-        let question = questions['data'][this.markerQuestion];
-        this.question = question;
-        this.title = question['question'];
-        if(question.hasOwnProperty("options")) {
-            this.list = question['options'];
-        } else {
-            this.list = [];
-        }
-    }
+    // createList(questions) {
+    //     let question = questions['data'][this.markerQuestion];
+    //     this.question = question;
+    //     this.title = question['question'];
+    //     if(question.hasOwnProperty("options")) {
+    //         this.list = question['options'];
+    //     } else {
+    //         this.list = [];
+    //     }
+    // }
 
     selectAnswer(event) {
         let answer = event.target.props.title;
@@ -36,16 +36,18 @@ export default class QuestionCard extends Component {
     }
 
     showAnsweringPanel() {
+        const renderItem = ({ item }) => (
+            <Item title={item.title} />
+        );
         let panel = "";
         if(this.list.length !== 0) {
-            panel = this.list.map((l, i) => (
-                <ListItem
-                    key={i}
-                    title={l}
-                    bottomDivider
-                    onPress={this.selectAnswer}
+            panel = <SafeAreaView style={styles.question}>
+                <FlatList
+                    data={questions['data']}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
                 />
-            ));
+            </SafeAreaView>
         } else {
             panel = <Input ref={input => (this.input = input)}
                 placeholder='Your Answer'
