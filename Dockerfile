@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM raspbian/desktop
 
 USER root
 
@@ -8,10 +8,10 @@ RUN apt update && apt install -y curl
 RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash
 RUN apt install -y nodejs
 
-RUN npm install -g expo-cli
+RUN sudo npm install -g expo-cli --unsafe-perm
 WORKDIR /home/project/world-transit-solar
 COPY . /home/project/world-transit-solar
-RUN npm install
+RUN sudo npm install --unsafe-perm
 
-RUN apt-get install git
+RUN sudo apt-get install git
 CMD ["expo", "start", "--dev", "--lan"]
