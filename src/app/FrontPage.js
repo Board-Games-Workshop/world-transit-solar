@@ -20,6 +20,7 @@ class FrontPage extends Component {
                         <Text style={styles.shinytile}>A game that is extra-ordinary for the youth for exploring their predictive skills.</Text>
                     </Text>
                 </TouchableOpacity>
+                {/* Browser Execution */}
                 <Browser />
             </View>
         );

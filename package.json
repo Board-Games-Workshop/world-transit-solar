@@ -7,7 +7,11 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "browser": "node ./tests/App/bin/www"
+    "browser": "node ./tests/App/bin/www",
+    "watch": "watchify src/webview/webview.js -o public/bundle.jshtml",
+    "compile": "browserify src/webview/webview.js -o public/bundle.jshtml",
+    "testwatch": "watchify src/webview/webview.js -o tests/App/public/public/bundle.js",
+    "testcompile": "browserify src/webview/webview.js -o tests/App/public/public/bundle.js"
   },
   "jest": {
     "preset": "jest-expo"
@@ -56,7 +60,8 @@
     "http-errors": "~1.6.3",
     "jest-expo": "~39.0.0",
     "morgan": "~1.9.1",
-    "typescript": "~3.9.5"
+    "typescript": "~3.9.5",
+    "watchify": "^3.11.1"
   },
   "private": true
 }

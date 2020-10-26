@@ -13,5 +13,9 @@ WORKDIR /home/project/world-transit-solar
 COPY . /home/project/world-transit-solar
 RUN sudo npm install --unsafe-perm
 
-RUN sudo apt-get install git
+RUN sudo apt-get install git -y
+
+RUN git config --global user.email "aswinkvj@gmail.com"
+RUN git conifg --global user.name "Aswin Vijayakumar"
+
 CMD ["expo", "start", "--dev", "--lan"]
