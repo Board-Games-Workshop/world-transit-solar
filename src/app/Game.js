@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { BlankSVGMap } from '../components/blanksvgmap';
 import GameStorageController from '../lib/GameStorageController';
 import GameState from '../lib/GameState';
-import { PLAYERS } from '../constants/player';
+import { PLAYERS } from '../../tests/App/public/constants/player';
 
 class Game extends Component {
 

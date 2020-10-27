@@ -5,7 +5,7 @@ import * as FileSystem from 'expo-file-system';
 import AsyncStorage from '@react-native-community/async-storage';
 import { ScreenOrientation } from 'expo';
 const process = require('process');
-import START_MARKERS from '../constants/webview';
+import { START_MARKERS } from '../../tests/App/public/constants/webview';
 
 export default class Map extends Component {
 

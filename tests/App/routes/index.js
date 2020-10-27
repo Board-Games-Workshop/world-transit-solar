@@ -4,8 +4,7 @@ const fs = require("fs");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  contents = fs.readFileSync('../../../public/index.html');
-  res.render('index', { "title": 'Express', "contents": contents });
+  res.render('index', { "title": 'Express' });
 });
 
 module.exports = router;

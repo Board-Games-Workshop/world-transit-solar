@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { Picker } from '@react-native-community/picker';
-import { PLAYERS } from '../constants/player';
+import { PLAYERS } from '../../tests/App/public/constants/player';
 
 class Rules extends Component {
 

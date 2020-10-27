@@ -17,7 +17,7 @@ export default class App extends Component {
   }
 
   _handlePressButtonAsync = async () => {
-    let result = await WebBrowser.openBrowserAsync('http://localhost:3000/public/index.html');
+    let result = await WebBrowser.openBrowserAsync('http://localhost:3000');
     this.setState({ result });
   };
 }
