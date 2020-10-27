@@ -5,6 +5,17 @@ window.Functions.markersInitialize(world_svg);
 window.Functions.wheelInitialize(world_svg);
 `;
 
+CONTEXT = {};
+
+CONTEXT.TOUCH_MARKER = function(pageX, pageY) {
+    return {
+        type: 'touch_marker',
+        pageX: pageX,
+        pageY: pageY
+    };
+}
+
 module.exports = {
-    "START_MARKERS": START_MARKERS
+    "START_MARKERS": START_MARKERS,
+    "CONTEXT": CONTEXT
 };

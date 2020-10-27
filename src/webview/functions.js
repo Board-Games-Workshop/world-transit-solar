@@ -10,6 +10,7 @@ Functions.addSVGGroup = function(svg, id) {
 
 Functions.listenToPostMessages = function(cb, svg, context) {
     window.addEventListener("message", function(event) {
+        alert(event);
         cb(svg, event);
     });
     return true;

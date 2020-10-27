@@ -5,7 +5,7 @@ import * as FileSystem from 'expo-file-system';
 import AsyncStorage from '@react-native-community/async-storage';
 import { ScreenOrientation } from 'expo';
 const process = require('process');
-import { START_MARKERS } from '../../tests/App/public/constants/webview';
+import { START_MARKERS, CONTEXT } from '../../tests/App/public/constants/webview';
 
 export default class Map extends Component {
 
@@ -66,11 +66,7 @@ export default class Map extends Component {
 
     touchMap(event) {
         const {pageX, pageY} = event;
-        let object = {
-            type: 'touch_marker',
-            pageX: pageX,
-            pageY: pageY
-        };
+        let object = CONTEXT.TOUCH_MARKER(pageX, pageY);
         this.injectBasicToWebView(object);
     }
 
