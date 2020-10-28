@@ -10,7 +10,6 @@ Functions.addSVGGroup = function(svg, id) {
 
 Functions.listenToPostMessages = function(cb, svg, context) {
     window.addEventListener("message", function(event) {
-        alert(event);
         cb(svg, event);
     });
     return true;
@@ -44,7 +43,9 @@ Functions.markersInitialize = function(world_svg) {
             var object = {
                 colors: colors
             };
-            if(colors.length) {
+            if(colors.length && window.parent.GLOBALS.mobile == false) {
+                window.parent.postMesage(JSON.stringify(object), "*");
+            } else {
                 window.ReactNativeWebView.postMesage(JSON.stringify(object), "*");
             }
         }

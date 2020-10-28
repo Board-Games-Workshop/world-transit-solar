@@ -13,7 +13,17 @@ CONTEXT.TOUCH_MARKER = function(pageX, pageY) {
         pageX: pageX,
         pageY: pageY
     };
-}
+};
+
+CONTEXT.CREATE_MARKER = function(x, y, row) {
+    return {
+        'type': 'create_marker',
+        'x': x,
+        'y': y,
+        'color': row.Hex,
+        'Dest': row.Dest
+    };
+};
 
 module.exports = {
     "START_MARKERS": START_MARKERS,
