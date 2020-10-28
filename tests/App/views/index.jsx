@@ -8,9 +8,11 @@ function MapPage(props) {
         <link href="stylesheets/style.css" rel="stylesheet" />
         <script type="text/javascript">
           var GLOBALS = new Object();
+          GLOBALS.return_value = false;
           GLOBALS.mobile = {mobile.toString()};
           window.GLOBALS = GLOBALS;
         </script>
+        <script type="text/javascript" src="public/map.js"></script>
       </head>
       <body>
       <div>

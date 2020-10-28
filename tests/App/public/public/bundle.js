@@ -9278,6 +9278,7 @@ Functions.addSVGGroup = function(svg, id) {
 Functions.listenToPostMessages = function(cb, svg, context) {
     window.addEventListener("message", function(event) {
         cb(svg, event);
+        window.parent.GLOBALS.return_value = true;
     });
     return true;
 };
@@ -9290,6 +9291,7 @@ Functions.markersInitialize = function(world_svg) {
             const {x, y, color, Dest} = event.data;
             marker.placeMarker(x, y, color, Dest);
             markers[color] = marker;
+            window.parent.PostMessage(JSON.stringify({}), null);
         } else if(event.data.type == "clear_markers") {
             Object.keys(markers).forEach((value, index) => {
                 value.removeMarker(index);
@@ -9310,7 +9312,9 @@ Functions.markersInitialize = function(world_svg) {
             var object = {
                 colors: colors
             };
-            if(colors.length) {
+            if(colors.length && window.parent.GLOBALS.mobile == false) {
+                window.parent.PostMessage(JSON.stringify(object), null);
+            } else {
                 window.ReactNativeWebView.postMesage(JSON.stringify(object), "*");
             }
         }
@@ -9328,6 +9332,26 @@ Functions.wheelInitialize = function(world_svg) {
     }, world_svg);
 };
 
+// PostMessage Wrapper for iframe window
+window.PostMessage = function(object, callback) {
+    var promise = new Promise(function(resolve) {
+        window.postMessage(object, "*");
+        // resolve the callback function
+        setInterval(function() {
+            if(window.parent.GLOBALS.return_value) {
+                resolve(true);
+                window.parent.GLOBALS.return_value = false;
+            }
+        }, 100);
+    });
+    // register promise
+    if(callback) {
+        promise.then(callback);
+    }
+
+    return promise;
+};
+
 module.exports = Functions;
 },{}],8:[function(require,module,exports){
 const UMap = require('./UMap');
@@ -9336,6 +9360,9 @@ const Token = require('./Token');
 const Functions = require('./functions');
 const Snap = require('snapsvg');
 const ColorWheel = require('./ColorWheel');
+var GLOBALS = {
+    return_value: false
+};
 
 window.UMap = UMap;
 window.Marker = Marker;
@@ -9343,4 +9370,5 @@ window.Token = Token;
 window.Functions = Functions;
 window.Snap = Snap;
 window.ColorWheel = ColorWheel;
+window.GLOBALS = GLOBALS;
 },{"./ColorWheel":3,"./Marker":4,"./Token":5,"./UMap":6,"./functions":7,"snapsvg":2}]},{},[8]);
