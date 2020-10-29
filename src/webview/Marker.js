@@ -41,9 +41,16 @@ Marker.prototype = {
     },
 
     isPointInside: function(x, y) {
-        let cx = parseFloat(this.circle.attr('cx'));
-        let cy = parseFloat(this.circle.attr('cy'));
-        return Math.sqrt(Math.pow(cx - x, 2) + Math.pow(cy - y, 2)) <= this.radius;
+        let cx = null, cy = null, present = false;
+        for (var color in this.circle) {
+            cx = parseFloat(this.circle[color].attr('cx'));
+            cy = parseFloat(this.circle[color].attr('cy'));
+            if(Math.sqrt(Math.pow(cx - x, 2) + Math.pow(cy - y, 2)) <= this.radius) {
+                present = true;
+                break;
+            }
+        }
+        return present;
     }
 }
 

@@ -39,16 +39,16 @@ Functions.markersInitialize = function(world_svg) {
             var colors = [];
             for(var color in markers) {
                 if(markers[color].isPointInside(pageX, pageY)) {
-                    colors.append(color);
+                    colors.push(color);
                 }
             }
             var object = {
                 colors: colors
             };
-            if(colors.length && window.parent.GLOBALS.mobile == "false") {
+            if(colors.length && window.parent.GLOBALS.mobile == false) {
                 window.parent.PostMessage(JSON.stringify(object), null);
             } else {
-                window.ReactNativeWebView.postMesage(JSON.stringify(object), "*");
+                window.ReactNativeWebView.postMessage(JSON.stringify(object), "*");
             }
         }
     }, world_svg);

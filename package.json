@@ -9,9 +9,9 @@
     "test": "jest --watchAll",
     "browser": "node ./tests/App/bin/www",
     "watch": "watchify src/webview/webview.js -o public/bundle.jshtml",
-    "compile": "browserify src/webview/webview.js -o public/bundle.jshtml",
+    "compile": "browserify -t [ babelify --presets [ @babel/preset-react ] ] src/webview/webview.js -o public/bundle.jshtml",
     "testwatch": "watchify src/webview/webview.js -o tests/App/public/public/bundle.js",
-    "testcompile": "browserify src/webview/webview.js -o tests/App/public/public/bundle.js"
+    "testcompile": "browserify -t [ babelify --presets [ @babel/preset-react ] ] src/webview/webview.js -o tests/App/public/public/bundle.js"
   },
   "jest": {
     "preset": "jest-expo"
@@ -50,8 +50,10 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@babel/preset-react": "^7.12.1",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
+    "babelify": "^10.0.0",
     "browserify": "^17.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

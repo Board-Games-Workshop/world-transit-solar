@@ -1,4 +1,92 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+},{}],2:[function(require,module,exports){
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+},{}],3:[function(require,module,exports){
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+},{}],4:[function(require,module,exports){
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+},{}],5:[function(require,module,exports){
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+},{}],6:[function(require,module,exports){
+var arrayWithHoles = require("./arrayWithHoles");
+
+var iterableToArrayLimit = require("./iterableToArrayLimit");
+
+var unsupportedIterableToArray = require("./unsupportedIterableToArray");
+
+var nonIterableRest = require("./nonIterableRest");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+},{"./arrayWithHoles":2,"./iterableToArrayLimit":4,"./nonIterableRest":5,"./unsupportedIterableToArray":7}],7:[function(require,module,exports){
+var arrayLikeToArray = require("./arrayLikeToArray");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+},{"./arrayLikeToArray":1}],8:[function(require,module,exports){
 // Copyright (c) 2017 Adobe Systems Incorporated. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -435,7 +523,7 @@
     typeof module != "undefined" && module.exports ? module.exports = eve : typeof define === "function" && define.amd ? define("eve", [], function () { return eve; }) : glob.eve = eve;
 })(typeof window != "undefined" ? window : this);
 
-},{}],2:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 // Snap.svg 0.5.0
 //
 // Copyright (c) 2013 – 2017 Adobe Systems Incorporated. All rights reserved.
@@ -9066,309 +9154,22 @@ Snap.plugin(function (Snap, Element, Paper, glob) {
 
 return Snap;
 }));
-},{"eve":1}],3:[function(require,module,exports){
-function Colorwheel() {
+},{"eve":8}],10:[function(require,module,exports){
+function Colorwheel(){function constructor(paper,props){this.paper=paper;this.props=props;this.circle=paper.circle(200,800,75).attr({stroke:'#fff',fill:"#f2f2f2"});this.text={};this.sectors=props.sectors;this.sector={};return this;}return constructor.apply(this,arguments);}Colorwheel.prototype={createSector:function createSector(color,index){var _this$radiusPoints=this.radiusPoints(index),rx=_this$radiusPoints.rx,ry=_this$radiusPoints.ry,angle=_this$radiusPoints.angle;var next_index=index+1;var radius=this.circle.attr('r');next_index=next_index%20;var cx=this.circle.attr('cx');var cy=this.circle.attr('cy');var pathString="M"+cx.toString()+","+cy.toString();pathString+=" L"+rx.toString()+","+ry.toString();var result=this.radiusPoints(next_index);pathString+=" A"+radius.toString()+","+radius.toString()+" "+angle.toString()+" 0 0 "+result.rx.toString()+","+result.ry.toString();this.sector[color]=this.paper.path(pathString).attr({fill:color,stroke:'#fff',strokeWith:'2',opacity:0.7});},removeSector:function removeSector(color){this.sector[color].remove();},radiusPoints:function radiusPoints(index){var cx=window.parseFloat(this.circle.attr('cx')),cy=window.parseFloat(this.circle.attr('cy')),radius=window.parseFloat(this.circle.attr('r')),theta=2*Math.PI*index/this.sectors,angle=2*Math.PI/this.sectors;return{'rx':cx+radius*Math.cos(theta),'ry':cy-radius*Math.sin(theta),'angle':angle};}};module.exports=Colorwheel;
 
-    function constructor(paper, props) {
-        this.paper = paper;
-        this.props = props;
-        this.circle = paper.circle(200, 800, 75).attr({stroke: '#fff', fill: "#f2f2f2"});
-        this.text = {};
-        this.sectors = props.sectors;
-        this.sector = {};
-        return this;
-    }
+},{}],11:[function(require,module,exports){
+function Marker(){function constructor(paper,props){this.paper=paper;this.props=props;this.circle={};this.text={};var opacity=props.opacity,radius=props.radius;if(!opacity){this.opacity=0.6;}else{this.opacity=opacity;}if(!radius){this.radius=10;}else{this.radius=radius;}return this;}return constructor.apply(this,arguments);}Marker.prototype={placeMarker:function placeMarker(x,y,color,Dest){this.circle[color]=this.paper.circle(x,y,this.radius).attr({fill:color,opacity:this.opacity});this.text[color]=this.paper.text(x+this.offset(),y-this.offset(),Dest).attr({fontSize:'13px',fill:'#000',stroke:'#000'});},removeMarker:function removeMarker(color){this.circle[color].remove();this.text[color].remove();},offset:function offset(){return 3;},isPointInside:function isPointInside(x,y){var cx=null,cy=null,present=false;for(var color in this.circle){cx=parseFloat(this.circle[color].attr('cx'));cy=parseFloat(this.circle[color].attr('cy'));if(Math.sqrt(Math.pow(cx-x,2)+Math.pow(cy-y,2))<=this.radius){present=true;break;}}return present;}};module.exports=Marker;
 
-    return constructor.apply(this, arguments);
+},{}],12:[function(require,module,exports){
+function Token(){function constructor(paper,props){this.paper=paper;this.props=props;this.token={};return this;}return constructor.apply(this,arguments);};Token.prototype={placeToken:function placeToken(x,y,variation){this.token[variation]=this.paper.image('../assets/img/airplane-token-'+color+'.png',x,y,15,15);},removeToken:function removeToken(variation){this.token[variation].remove();}};module.exports=Token;
 
-}
+},{}],13:[function(require,module,exports){
+var _interopRequireDefault=require("@babel/runtime/helpers/interopRequireDefault");var _slicedToArray2=_interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));function UMap(){function constructor(paper,props){this.paper=paper;this.props=props;this._center=null;definitions.call(this);return this;}function definitions(){this.aspectRatio={get:function get(){return this.paper.attr('width')/this.paper.attr('height');}};this.responsive={set:function set(responsive){if(responsive===true){}else{this.paper.node.removeAttribute('width');this.paper.node.removeAttribute('height');}}};this.center={get:function get(){return this._center;},set:function set(center){this._center=center;}};}return constructor.apply(this,arguments);}UMap.prototype={calculateCenter:function calculateCenter(x,y,w,h){return[0.5*(x+w),0.5*(y+h)];},setViewBox:function setViewBox(x,y,w,h,fit){this.paper.attr({viewBox:Map.getViewBox(x,y,w,h)});this.center=this.calculateCenter(x,y,w,h);},translateMap:function translateMap(tx,ty){var _this$paper$node$getA=this.paper.node.getAttribute('viewBox').split(' '),_this$paper$node$getA2=(0,_slicedToArray2.default)(_this$paper$node$getA,4),vx=_this$paper$node$getA2[0],vy=_this$paper$node$getA2[1],vw=_this$paper$node$getA2[2],vh=_this$paper$node$getA2[3];var _x$y={'x':vx-tx,'y':vy-ty},x=_x$y.x,y=_x$y.y;this.paper.setViewBox(x,y,vw,vh,fit);},zoomMap:function zoomMap(z){var _this$paper$node$getA3=this.paper.node.getAttribute('viewBox').split(' '),_this$paper$node$getA4=(0,_slicedToArray2.default)(_this$paper$node$getA3,4),vx=_this$paper$node$getA4[0],vy=_this$paper$node$getA4[1],vw=_this$paper$node$getA4[2],vh=_this$paper$node$getA4[3];var _this$center=(0,_slicedToArray2.default)(this.center,2),cx=_this$center[0],cy=_this$center[1];var offset=z/Math.abs(z);var _x$y$w$h={'x':vx+offset*this.props.zoomParameter*z,'y':vy-offset*this.props.zoomParameter*z,'w':vw-offset*this.props.zoomParameter*z,'h':vh-offset*this.props.zoomParameter*z},x=_x$y$w$h.x,y=_x$y$w$h.y,w=_x$y$w$h.w,h=_x$y$w$h.h;this.paper.setViewBox(x,y,w,h,fit);}};UMap.getViewBox=function(x,y,w,h){return[x.toString(),y.toString(),w.toString(),h.toString()].join(" ");};module.exports=UMap;
 
-Colorwheel.prototype = {
-    createSector: function(color, index) {
-        let { rx, ry, angle } = this.radiusPoints(index);
-        let next_index = index + 1;
-        let radius = this.circle.attr('r');
-        next_index = next_index % 20;
-        const cx = this.circle.attr('cx');
-        const cy = this.circle.attr('cy');
-        let pathString = "M" + cx.toString() + "," + cy.toString();
-        pathString += " L" + rx.toString() + "," + ry.toString();
-        let result = this.radiusPoints(next_index);
-        pathString += " A" + radius.toString() + "," + radius.toString() + " " + angle.toString() + " 0 0 " + result.rx.toString() + "," + result.ry.toString();
-        this.sector[color] = this.paper.path(pathString).attr({fill: color, stroke: '#fff', strokeWith: '2', opacity: 0.7});
-    },
+},{"@babel/runtime/helpers/interopRequireDefault":3,"@babel/runtime/helpers/slicedToArray":6}],14:[function(require,module,exports){
+function Functions(){};Functions.addSVGGroup=function(svg,id){var g=document.createElement('g');g.id=id;svg.appendChild(g);};Functions.listenToPostMessages=function(cb,svg,context){window.addEventListener("message",function(event){cb(svg,event);window.parent.GLOBALS.return_value=true;});return true;};Functions.markersInitialize=function(world_svg){return Functions.listenToPostMessages(function(svg,event){if(event.data.type=="create_marker"){var _event$data=event.data,opacity=_event$data.opacity,radius=_event$data.radius;var marker=new window.Marker(svg,{opacity:opacity,radius:radius});var _event$data2=event.data,x=_event$data2.x,y=_event$data2.y,_color=_event$data2.color,Dest=_event$data2.Dest;marker.placeMarker(x,y,_color,Dest);markers[_color]=marker;window.parent.PostMessage(JSON.stringify({}),null);}else if(event.data.type=="clear_markers"){Object.keys(markers).forEach(function(value,index){value.removeMarker(index);});markers={};}else if(event.data.type=="remove_marker"){markers[event.data.color].removeMarker();delete markers[event.data.color];}else if(event.data.type=="touch_marker"){var _event$data3=event.data,pageX=_event$data3.pageX,pageY=_event$data3.pageY;var colors=[];for(var color in markers){if(markers[color].isPointInside(pageX,pageY)){colors.push(color);}}var object={colors:colors};if(colors.length&&window.parent.GLOBALS.mobile==false){window.parent.PostMessage(JSON.stringify(object),null);}else{window.ReactNativeWebView.postMessage(JSON.stringify(object),"*");}}},world_svg);};Functions.wheelInitialize=function(world_svg){return Functions.listenToPostMessages(function(svg,event){if(event.data.type=="create_wheel"){var wheel=new window.ColorWheel(svg,{sectors:event.data.sectors});for(var i=0;i<event.data.sectors;i++){wheel.createSector(event.data.colors[i],i);}}},world_svg);};window.PostMessage=function(object,callback){var promise=new Promise(function(resolve){window.postMessage(object,"*");setInterval(function(){if(window.parent.GLOBALS.return_value){resolve(true);window.parent.GLOBALS.return_value=false;}},100);});if(callback){promise.then(callback);}return promise;};module.exports=Functions;
 
-    removeSector: function(color) {
-        this.sector[color].remove();
-    },
+},{}],15:[function(require,module,exports){
+var UMap=require("./UMap");var Marker=require("./Marker");var Token=require("./Token");var Functions=require("./functions");var Snap=require('snapsvg');var ColorWheel=require("./ColorWheel");var GLOBALS={return_value:false};window.UMap=UMap;window.Marker=Marker;window.Token=Token;window.Functions=Functions;window.Snap=Snap;window.ColorWheel=ColorWheel;window.GLOBALS=GLOBALS;
 
-    radiusPoints: function(index) {
-        var cx = window.parseFloat(this.circle.attr('cx')), 
-        cy = window.parseFloat(this.circle.attr('cy')), 
-        radius = window.parseFloat(this.circle.attr('r')),
-        theta = 2 * Math.PI * index / this.sectors,
-        angle = 2 * Math.PI / this.sectors;
-        return { 'rx': cx + radius * Math.cos(theta), 'ry': cy - radius * Math.sin(theta), 'angle': angle };
-    }
-};
-
-module.exports = Colorwheel;
-},{}],4:[function(require,module,exports){
-function Marker() {
-
-    function constructor(paper, props) {
-        this.paper = paper;
-        this.props = props;
-        this.circle = {};
-        this.text = {};
-        const {opacity, radius} = props;
-        if(!opacity) {
-            this.opacity = 0.6;
-        } else {
-            this.opacity = opacity;
-        }
-        if(!radius) {
-            this.radius = 10;
-        } else {
-            this.radius = radius;
-        }
-        return this;
-    }
-
-    return constructor.apply(this, arguments);
-
-}
-
-Marker.prototype = {
-    placeMarker: function(x, y, color, Dest) {
-        this.circle[color] = this.paper.circle(x, y, this.radius)
-            .attr({fill: color, opacity: this.opacity});
-        this.text[color] = this.paper.text(x + this.offset(), y - this.offset(), Dest)
-            .attr({fontSize: '13px', fill: '#000', stroke: '#000'});
-    },
-
-    removeMarker: function(color) {
-        this.circle[color].remove();
-        this.text[color].remove();
-    },
-
-    offset: function() {
-        return 3;
-    },
-
-    isPointInside: function(x, y) {
-        let cx = parseFloat(this.circle.attr('cx'));
-        let cy = parseFloat(this.circle.attr('cy'));
-        return Math.sqrt(Math.pow(cx - x, 2) + Math.pow(cy - y, 2)) <= this.radius;
-    }
-}
-
-module.exports = Marker;
-},{}],5:[function(require,module,exports){
-function Token() {
-
-    function constructor(paper, props) {
-        this.paper = paper;
-        this.props = props;
-        this.token = {};
-        return this;
-    }
-
-    return constructor.apply(this, arguments);
-
-};
-
-Token.prototype = {
-    placeToken: function(x, y, variation) {
-        this.token[variation] = this.paper.image('../assets/img/airplane-token-' + color + '.png', x, y, 15, 15);
-    },
-
-    removeToken: function(variation) {
-        this.token[variation].remove();
-    }
-}
-
-module.exports = Token;
-},{}],6:[function(require,module,exports){
-function UMap() {
-
-    function constructor(paper, props) {
-        this.paper = paper;
-        this.props = props;
-        this._center = null;
-        definitions.call(this);
-        return this;
-    }
-
-    function definitions() {
-        this.aspectRatio = { get: function() {
-            return this.paper.attr('width') / this.paper.attr('height');
-        }};
-    
-        this.responsive = {
-            set: function(responsive) {
-                if(responsive === true) {
-        
-                } else {
-                    this.paper.node.removeAttribute('width');
-                    this.paper.node.removeAttribute('height');
-                }
-            }
-        }
-    
-        this.center = {
-            get: function() { return this._center; },
-            set: function(center) { this._center = center; }
-        };
-    }
-
-    return constructor.apply(this, arguments);
-
-}
-
-UMap.prototype = {
-    calculateCenter: function(x, y, w, h) {
-        return [0.5*(x+w), 0.5*(y+h)];
-    },
-
-    setViewBox: function(x, y, w, h, fit) {
-        this.paper.attr({viewBox: Map.getViewBox(x, y, w, h)});
-        this.center = this.calculateCenter(x, y, w, h);
-    },
-
-    translateMap: function(tx, ty) {
-        let [vx, vy, vw, vh] = this.paper.node.getAttribute('viewBox').split(' ');
-        const {x, y} = {
-            'x': vx - tx,
-            'y': vy - ty
-        };
-        this.paper.setViewBox(x, y, vw, vh, fit);
-    },
-
-    zoomMap: function(z) {
-        let [vx, vy, vw, vh] = this.paper.node.getAttribute('viewBox').split(' ');
-        let [cx, cy] = this.center;
-        let offset = z/Math.abs(z);
-        const {x, y, w, h} = {
-            'x': vx + offset*this.props.zoomParameter*z,
-            'y': vy - offset*this.props.zoomParameter*z,
-            'w': vw - offset*this.props.zoomParameter*z,
-            'h': vh - offset*this.props.zoomParameter*z
-        };
-        this.paper.setViewBox(x, y, w, h, fit);
-    }
-};
-
-UMap.getViewBox = function(x, y, w, h) {
-    return [x.toString(), y.toString(), w.toString(), h.toString()].join(" ");
-};
-
-module.exports = UMap;
-},{}],7:[function(require,module,exports){
-function Functions() {
-
-};
-
-Functions.addSVGGroup = function(svg, id) {
-    var g = document.createElement('g');
-    g.id = id;
-    svg.appendChild(g);
-};
-
-Functions.listenToPostMessages = function(cb, svg, context) {
-    window.addEventListener("message", function(event) {
-        cb(svg, event);
-        window.parent.GLOBALS.return_value = true;
-    });
-    return true;
-};
-
-Functions.markersInitialize = function(world_svg) {
-    return Functions.listenToPostMessages(function(svg, event) {
-        if(event.data.type == "create_marker") {
-            const { opacity, radius } = event.data;
-            let marker = new window.Marker(svg, {opacity: opacity, radius: radius});
-            const {x, y, color, Dest} = event.data;
-            marker.placeMarker(x, y, color, Dest);
-            markers[color] = marker;
-            window.parent.PostMessage(JSON.stringify({}), null);
-        } else if(event.data.type == "clear_markers") {
-            Object.keys(markers).forEach((value, index) => {
-                value.removeMarker(index);
-            });
-            markers = {};
-        }
-        else if(event.data.type == "remove_marker") {
-            markers[event.data.color].removeMarker();
-            delete markers[event.data.color];
-        } else if(event.data.type == "touch_marker") {
-            const { pageX, pageY } = event.data;
-            var colors = [];
-            for(var color in markers) {
-                if(markers[color].isPointInside(pageX, pageY)) {
-                    colors.append(color);
-                }
-            }
-            var object = {
-                colors: colors
-            };
-            if(colors.length && window.parent.GLOBALS.mobile == false) {
-                window.parent.PostMessage(JSON.stringify(object), null);
-            } else {
-                window.ReactNativeWebView.postMesage(JSON.stringify(object), "*");
-            }
-        }
-    }, world_svg);
-};
-
-Functions.wheelInitialize = function(world_svg) {
-    return Functions.listenToPostMessages(function(svg, event) {
-        if(event.data.type == "create_wheel") {
-            let wheel = new window.ColorWheel(svg, { sectors: event.data.sectors });
-            for(var i = 0; i < event.data.sectors; i++) {
-                wheel.createSector(event.data.colors[i], i);
-            }
-        }
-    }, world_svg);
-};
-
-// PostMessage Wrapper for iframe window
-window.PostMessage = function(object, callback) {
-    var promise = new Promise(function(resolve) {
-        window.postMessage(object, "*");
-        // resolve the callback function
-        setInterval(function() {
-            if(window.parent.GLOBALS.return_value) {
-                resolve(true);
-                window.parent.GLOBALS.return_value = false;
-            }
-        }, 100);
-    });
-    // register promise
-    if(callback) {
-        promise.then(callback);
-    }
-
-    return promise;
-};
-
-module.exports = Functions;
-},{}],8:[function(require,module,exports){
-const UMap = require('./UMap');
-const Marker = require('./Marker');
-const Token = require('./Token');
-const Functions = require('./functions');
-const Snap = require('snapsvg');
-const ColorWheel = require('./ColorWheel');
-var GLOBALS = {
-    return_value: false
-};
-
-window.UMap = UMap;
-window.Marker = Marker;
-window.Token = Token;
-window.Functions = Functions;
-window.Snap = Snap;
-window.ColorWheel = ColorWheel;
-window.GLOBALS = GLOBALS;
-},{"./ColorWheel":3,"./Marker":4,"./Token":5,"./UMap":6,"./functions":7,"snapsvg":2}]},{},[8]);
+},{"./ColorWheel":10,"./Marker":11,"./Token":12,"./UMap":13,"./functions":14,"snapsvg":9}]},{},[15]);
