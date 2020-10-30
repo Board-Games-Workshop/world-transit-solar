@@ -7,6 +7,8 @@ import Message from './Message';
 import Map from './Map';
 import BoardScale from './BoardScale';
 
+let window = {};
+
 export default class GameController extends Component {
 
   currentPlayer = 1;

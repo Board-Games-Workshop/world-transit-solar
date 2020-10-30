@@ -13,6 +13,7 @@ export default class Map extends Component {
     fileURI = "";
     jsURI = "";
     sourceJS = "";
+    map = null;
 
     constructor(props) {
         super(props);
@@ -27,7 +28,7 @@ export default class Map extends Component {
         await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
     }
 
-    showSelection(data) {
+    onMessageEvents(data) {
         const { colors } = data;
         this.props.GameController.sidebar.setState({
             colors: colors
@@ -93,7 +94,7 @@ export default class Map extends Component {
                 allowUniversalAccessFromFileURLs={true}
                 originWhitelist={['*']}
                 onMessage={event => {
-                    this.showSelection(event.nativeEvent.data);
+                    this.onMessageEvents(event.nativeEvent.data);
                 }}
             />
         )

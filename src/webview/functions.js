@@ -18,41 +18,37 @@ Functions.listenToPostMessages = function(cb, svg, context) {
 
 Functions.markersInitialize = function(world_svg) {
     return Functions.listenToPostMessages(function(svg, event) {
+        var data = {'type': event.data.type};
         if(event.data.type == "create_marker") {
             const { opacity, radius } = event.data;
             let marker = new window.Marker(svg, {opacity: opacity, radius: radius});
             const {x, y, color, Dest} = event.data;
             marker.placeMarker(x, y, color, Dest);
-            markers[color] = marker;
-            window.parent.PostMessage(JSON.stringify({}), null);
+            window.GLOBALS.markers[color] = marker;
         } else if(event.data.type == "clear_markers") {
-            Object.keys(markers).forEach((value, index) => {
+            Object.keys(window.GLOBALS.markers).forEach((value, index) => {
                 value.removeMarker(index);
             });
-            markers = {};
+            window.GLOBALS.markers = {};
         }
         else if(event.data.type == "remove_marker") {
-            markers[event.data.color].removeMarker();
-            delete markers[event.data.color];
+            window.GLOBALS.markers[event.data.color].removeMarker();
+            delete window.GLOBALS.markers[event.data.color];
         } else if(event.data.type == "touch_marker") {
             const { pageX, pageY } = event.data;
             var colors = [];
             for(var color in markers) {
-                if(markers[color].isPointInside(pageX, pageY)) {
+                if(window.GLOBALS.markers[color].isPointInside(pageX, pageY)) {
                     colors.push(color);
                 }
             }
+            data['colors'] = colors;
             for(var color in markers) {
-                markers[color].animateMarker(color);
+                window.GLOBALS.markers[color].animateMarker(color);
             }
-            var object = {
-                colors: colors
-            };
-            if(colors.length && window.parent.GLOBALS.mobile == false) {
-                window.parent.PostMessage(JSON.stringify(object), null);
-            } else {
-                window.ReactNativeWebView.postMessage(JSON.stringify(object), "*");
-            }
+        }
+        if(typeof(event.data.type) != "undefined" && window.GLOBALS.mobile == false) {
+            window.parent.PostMessage();
         }
     }, world_svg);
 };
@@ -75,8 +71,8 @@ window.PostMessage = function(object, callback) {
         // resolve the callback function
         setInterval(function() {
             if(window.parent.GLOBALS.return_value) {
-                resolve(true);
                 window.parent.GLOBALS.return_value = false;
+                resolve(true);
             }
         }, 100);
     });

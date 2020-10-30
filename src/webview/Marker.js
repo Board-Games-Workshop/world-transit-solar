@@ -29,6 +29,7 @@ function Marker() {
 Marker.prototype = {
     OPACITY: 0.4,
     RADIUS: 10,
+    OFFSET: 2,
 
     placeMarker: function(x, y, color, Dest) {
         this.positions[color] = {'x': x, 'y': y};
@@ -52,7 +53,9 @@ Marker.prototype = {
         for (var color in this.circle) {
             cx = parseFloat(this.circle[color].attr('cx'));
             cy = parseFloat(this.circle[color].attr('cy'));
-            if(Math.sqrt(Math.pow(cx - x, 2) + Math.pow(cy - y, 2)) <= this.radius) {
+            if(Math.sqrt(
+                Math.pow(cx - x, 
+                Marker.prototype.OFFSET) + Math.pow(cy - y, Marker.prototype.OFFSET)) <= this.radius) {
                 present = true;
                 break;
             }
@@ -63,7 +66,7 @@ Marker.prototype = {
     animateMarker: function(color) {
         var instance = this;
         this.ring[color] = this.paper.circle(this.positions[color]['x'], 
-            this.positions[color]['y'], this.radius + 2)
+            this.positions[color]['y'], this.radius + Marker.prototype.OFFSET)
             .attr({fill: "transparent", opacity: 1.0});
         this.interval = window.setInterval(function() {
             instance.circle[color].animate({ opacity: Marker.prototype.OPACITY }, 1500, 

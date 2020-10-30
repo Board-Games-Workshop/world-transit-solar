@@ -6,7 +6,8 @@ const Snap = require('snapsvg');
 const ColorWheel = require('./ColorWheel');
 
 var GLOBALS = {
-    return_value: false
+    return_value: false,
+    markers: []
 };
 
 window.UMap = UMap;

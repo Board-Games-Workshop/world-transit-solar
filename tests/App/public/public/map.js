@@ -1,5 +1,7 @@
 window.addEventListener("message", function(event) {
+    window.removeEventListener("message");
     var iframe = document.getElementsByTagName("iframe")[0];
+    var type = event.data.type;
     iframe.contentWindow.GLOBALS.return_value = true;
 });
 
@@ -11,8 +13,8 @@ window.PostMessage = function(object, callback) {
         // resolve the callback function
         setInterval(function() {
             if(iframe.contentWindow.GLOBALS.return_value) {
-                resolve(true);
                 iframe.contentWindow.GLOBALS.return_value = false;
+                resolve(true);
             }
         }, 100);
     });

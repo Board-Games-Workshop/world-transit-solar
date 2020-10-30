@@ -23,8 +23,6 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    },
-    "port": 19002,
-    "host": "192.168.0.21"
+    }
   }
 }
