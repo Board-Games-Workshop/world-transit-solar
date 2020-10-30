@@ -35,6 +35,7 @@ Functions.markersInitialize = function(world_svg) {
             delete window.GLOBALS.markers[event.data.color];
         } else if(event.data.type == "touch_marker") {
             const { pageX, pageY } = event.data;
+            const { opacity } = event.data;
             var colors = [];
             for(var color in window.GLOBALS.markers) {
                 if(window.GLOBALS.markers[color].isPointInside(pageX, pageY)) {
@@ -45,6 +46,8 @@ Functions.markersInitialize = function(world_svg) {
             for(var color in window.GLOBALS.markers) {
                 window.GLOBALS.markers[color].animateMarker(color);
             }
+            let sunscreen = new window.Sunscreen(svg, {opacity: opacity});
+            sunscreen.moveScreen();
         }
         if(typeof(event.data.type) != "undefined" && window.parent.GLOBALS.mobile == false) {
             window.parent.PostMessage(data, function(){});

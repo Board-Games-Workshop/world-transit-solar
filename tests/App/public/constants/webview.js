@@ -11,7 +11,8 @@ CONTEXT.TOUCH_MARKER = function(pageX, pageY) {
     return {
         type: 'touch_marker',
         pageX: pageX,
-        pageY: pageY
+        pageY: pageY,
+        opacity: 0.2
     };
 };
 

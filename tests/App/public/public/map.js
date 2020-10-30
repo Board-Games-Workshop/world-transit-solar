@@ -1,5 +1,5 @@
 window.addEventListener("message", function(event) {
-    window.removeEventListener("message");
+    window.removeEventListener("message", function() {});
     var iframe = document.getElementsByTagName("iframe")[0];
     var type = event.data.type;
     iframe.contentWindow.GLOBALS.return_value = true;
