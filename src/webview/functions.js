@@ -42,6 +42,9 @@ Functions.markersInitialize = function(world_svg) {
                     colors.push(color);
                 }
             }
+            for(var color in markers) {
+                markers[color].animateMarker(color);
+            }
             var object = {
                 colors: colors
             };

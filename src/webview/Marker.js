@@ -4,15 +4,18 @@ function Marker() {
         this.paper = paper;
         this.props = props;
         this.circle = {};
+        this.ring = {};
         this.text = {};
-        const {opacity, radius} = props;
+        this.positions = {};
+        this.interval = null;
+        const { opacity, radius } = props;
         if(!opacity) {
-            this.opacity = 0.6;
+            this.opacity = Marker.prototype.OPACITY;
         } else {
             this.opacity = opacity;
         }
         if(!radius) {
-            this.radius = 10;
+            this.radius = Marker.prototype.RADIUS;
         } else {
             this.radius = radius;
         }
@@ -24,7 +27,11 @@ function Marker() {
 }
 
 Marker.prototype = {
+    OPACITY: 0.4,
+    RADIUS: 10,
+
     placeMarker: function(x, y, color, Dest) {
+        this.positions[color] = {'x': x, 'y': y};
         this.circle[color] = this.paper.circle(x, y, this.radius)
             .attr({fill: color, opacity: this.opacity});
         this.text[color] = this.paper.text(x + this.offset(), y - this.offset(), Dest)
@@ -51,7 +58,24 @@ Marker.prototype = {
             }
         }
         return present;
+    },
+
+    animateMarker: function(color) {
+        var instance = this;
+        this.ring[color] = this.paper.circle(this.positions[color]['x'], 
+            this.positions[color]['y'], this.radius + 2)
+            .attr({fill: "transparent", opacity: 1.0});
+        this.interval = window.setInterval(function() {
+            instance.circle[color].animate({ opacity: Marker.prototype.OPACITY }, 1500, 
+                Snap.mina, function() {
+                instance.circle[color].animate({ opacity: 1.0 }, 1000);
+            });
+        }, 1500);
+    },
+
+    clearMarker: function() {
+        window.clearInterval(this.interval);
     }
-}
+};
 
 module.exports = Marker;

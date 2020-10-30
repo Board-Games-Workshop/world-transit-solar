@@ -4,6 +4,7 @@ const Token = require('./Token');
 const Functions = require('./functions');
 const Snap = require('snapsvg');
 const ColorWheel = require('./ColorWheel');
+
 var GLOBALS = {
     return_value: false
 };
