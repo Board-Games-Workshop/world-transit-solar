@@ -30,36 +30,43 @@ Functions.markersInitialize = function(world_svg) {
                 value.removeMarker(index);
             });
             window.GLOBALS.markers = {};
-        }
-        else if(event.data.type == "remove_marker") {
+        } else if(event.data.type == "remove_marker") {
             window.GLOBALS.markers[event.data.color].removeMarker();
             delete window.GLOBALS.markers[event.data.color];
         } else if(event.data.type == "touch_marker") {
             const { pageX, pageY } = event.data;
             var colors = [];
-            for(var color in markers) {
+            for(var color in window.GLOBALS.markers) {
                 if(window.GLOBALS.markers[color].isPointInside(pageX, pageY)) {
                     colors.push(color);
                 }
             }
             data['colors'] = colors;
-            for(var color in markers) {
+            for(var color in window.GLOBALS.markers) {
                 window.GLOBALS.markers[color].animateMarker(color);
             }
         }
-        if(typeof(event.data.type) != "undefined" && window.GLOBALS.mobile == false) {
-            window.parent.PostMessage();
+        if(typeof(event.data.type) != "undefined" && window.parent.GLOBALS.mobile == false) {
+            window.parent.PostMessage(data, function(){});
+        } else {
+            window.ReactNativeWebView.postMessage(data);
         }
     }, world_svg);
 };
 
 Functions.wheelInitialize = function(world_svg) {
     return Functions.listenToPostMessages(function(svg, event) {
+        var data = {'type': event.data.type};
         if(event.data.type == "create_wheel") {
             let wheel = new window.ColorWheel(svg, { sectors: event.data.sectors });
             for(var i = 0; i < event.data.sectors; i++) {
                 wheel.createSector(event.data.colors[i], i);
             }
+        }
+        if(typeof(event.data.type) != "undefined" && window.parent.GLOBALS.mobile == false) {
+            window.parent.PostMessage(data, function(){});
+        } else {
+            window.ReactNativeWebView.postMessage(data);
         }
     }, world_svg);
 };
