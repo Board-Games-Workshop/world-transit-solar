@@ -29,3 +29,11 @@ Interactive Game where the players will have to answer questions following ephem
 
 > npm run browser
 
+## How is the AnimFrame run
+
+```javascript
+
+    const element = <Sunscreen paper={svg} opacity={opacity} position={200} />;
+    ReactDOM.render( sunscreen, document.getElementById("root") );
+
+```

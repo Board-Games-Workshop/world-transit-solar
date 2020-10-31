@@ -1,3 +1,8 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { animation } from 'snapsvg';
+import Sunscreen from './Sunscreen';
+
 function Functions() {
 
 };
@@ -46,8 +51,8 @@ Functions.markersInitialize = function(world_svg) {
             for(var color in window.GLOBALS.markers) {
                 window.GLOBALS.markers[color].animateMarker(color);
             }
-            let sunscreen = new window.Sunscreen(svg, {opacity: opacity});
-            sunscreen.moveScreen();
+            const sunscreen = <Sunscreen paper={svg} opacity={opacity} position={200} />;
+            ReactDOM.render( sunscreen, document.getElementById("root") );
         }
         if(typeof(event.data.type) != "undefined" && window.parent.GLOBALS.mobile == false) {
             window.parent.PostMessage(data, function(){});

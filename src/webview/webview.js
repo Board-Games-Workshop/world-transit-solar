@@ -4,7 +4,7 @@ const Token = require('./Token');
 const Functions = require('./functions');
 const Snap = require('snapsvg');
 const ColorWheel = require('./ColorWheel');
-const Sunscreen = require('./Sunscreen');
+import AnimFrame from '../../tests/App/public/components/AnimFrame';
 
 var GLOBALS = {
     return_value: false,
@@ -17,5 +17,5 @@ window.Token = Token;
 window.Functions = Functions;
 window.Snap = Snap;
 window.ColorWheel = ColorWheel;
-window.Sunscreen = Sunscreen;
+window.AnimFrame = AnimFrame;
 window.GLOBALS = GLOBALS;
