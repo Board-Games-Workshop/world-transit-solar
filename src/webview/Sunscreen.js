@@ -49,16 +49,20 @@ class Sunscreen extends AnimFrame {
     }
 
     runAnimation() {
-        this.callAttachedEvents("sunscreen");
-        if(this.state['position'] < this.RUN_TIME) {
-            this.setState({
-                position: this.state['position'] + 1
-            });
-            window.requestAnimationFrame(this.runAnimation);
+        let instance = this;
+        function callback(instance) {
+            if(instance.state['position'] < instance.RUN_TIME) {
+                instance.setState({
+                    position: instance.state['position'] + 1
+                });
+                window.requestAnimationFrame(instance.runAnimation);
+            }
         }
+        window.setTimeout(callback, 300, instance);
     }
 
     render() {
+        this.callAttachedEvents("sunscreen");
         return "Running Animation...";
     }
 
