@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     icon: {
-        display: "block",
+        display: "flex",
         width: "100%"
     },
     designStyle: {

@@ -108,12 +108,12 @@ export default class Map extends Component {
             controller.setState({
                 loadHtml: true
             });
-            let assetJS = Asset.fromModule(require('../../public/bundle.jshtml'));
+            let assetJS = Asset.fromModule(require('../../public/bundle.js'));
             assetJS.downloadAsync().then(function() {
                 controller.jsURI = assetJS.localUri;
                 controller.downloadJS();
             });
         });
-        // this.changeScreenOrientation();
+        this.changeScreenOrientation();
     }
 }
